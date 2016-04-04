@@ -1,0 +1,14 @@
+----------------------Program to create a Directory based treasure hunt based on text input------------------------------------
+
+Instructions for input file:
+It should contain input in the given manner
+<Question>
+<Options>       //All in new line
+.
+.
+.
+.
+
+<Correct option>      //Correct option leaving a blank line
+<Question2>          //New question without leaving a blank
+

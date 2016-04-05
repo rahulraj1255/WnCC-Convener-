@@ -11,10 +11,12 @@ do
 	while [ $l -lt $option1 ] 
 	do
 		read option[$l,$i]
+		option[$l,$i]=$(echo """${option[$l,$i]}""")
 		l=$((l+1))
 	done
 	read
 	read answer[$i]
+	answer[$i]=$(echo """${answer[$i]}""")
 	i=$((i+1))
 done
 [ -d $current_dir ] && ( cd $current_dir ) &&( mkdir Treasure_Hunt)
@@ -23,29 +25,42 @@ working_dir="$current_dir/Treasure_Hunt"
 i=1
 while [ "${question[$i]}" != "" ]
 do
+	j=1
 	if [ "$i" != "1" ] 
  	then
- 		paths=$(find * -maxdepth $((i-2)) -mindepth $((i-2)) -type d)
+ 		find * -maxdepth $((i-2)) -mindepth $((i-2)) -type d > output.txt
+		while read p[$j]
+		do
+			j=$((j+1))
+		done <output.txt
+		j=$((j-1))
 	else 
-		paths="."
+		p="."
+		
+	
 	fi
-	for p in $paths
+	echo asd${p[1]}asds
+	g=1
+	while [[ $g<=$j ]]
 	do
-		cd $p 
+		p[$g]=$(echo """${p[$g]}""")
+		cd "${p[$g]}" 
 		l=0
 		while [ $l -lt $option1 ] 
 		do
-		mkdir ${option[$l,$i]}
+		mkdir "${option[$l,$i]}"
 		l=$((l+1))
 		done
 		echo ${question[$i]} > "q"$i
 		cd $working_dir
+		g=$((g+1))
 	done
 	i=$((i+1))
+	rm output.txt
 done
 i=1
-while [[ ${answer[$i]} != "" ]]; do
-	cd ./${answer[$i]}
+while [[ "${answer[$i]}" != "" ]]; do
+	cd ./"${answer[$i]}"
 	i=$((i+1))
 done
 echo "You Win!" > Win.txt
